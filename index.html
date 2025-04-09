@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>羽毛球活動AA計費器</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 語言選單功能已移除 -->
+
+    <div class="container">
+        <h1 id="main-title">羽毛球活動AA計費器</h1>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('basic')" id="basic-tab">基本計算</button>
+            <button class="tab-btn" onclick="showTab('advanced')" id="advanced-tab">進階計算</button>
+        </div>
+        
+        <!-- 基本計算界面 -->
+        <div id="basic" class="tab-content active">
+            <div class="input-group">
+                <label for="court-fee" id="court-fee-label">總場地費 (元):</label>
+                <input type="number" id="court-fee" min="0" step="1">
+            </div>
+            
+            <div class="input-group">
+                <label for="shuttle-fee" id="shuttle-fee-label">總球費 (元):</label>
+                <input type="number" id="shuttle-fee" min="0" step="1">
+                <button id="calculate-shuttle-btn" onclick="showShuttleCalculator()">點我計算球費</button>
+            </div>
+            
+            <div class="input-group">
+                <label for="total-people" id="total-people-label">總人數:</label>
+                <input type="number" id="total-people" min="1" step="1">
+            </div>
+            
+            <div class="result-container">
+                <div id="basic-result" class="result"></div>
+            </div>
+            
+            <div class="button-group">
+                <button id="basic-calculate-btn" onclick="calculateBasic()">計算AA費用</button>
+                <button id="basic-reset-btn" onclick="resetBasic()">一鍵重置</button>
+            </div>
+            
+            <!-- 日期顯示 -->
+            <div class="date-display" id="basic-date-display"></div>
+        </div>
+        
+        <!-- 進階計算界面 -->
+        <div id="advanced" class="tab-content">
+            <div class="input-group">
+                <label for="adv-court-fee" id="adv-court-fee-label">總場地費 (元):</label>
+                <input type="number" id="adv-court-fee" min="0" step="1">
+            </div>
+            
+            <div class="input-group">
+                <label for="adv-shuttle-fee" id="adv-shuttle-fee-label">總球費 (元):</label>
+                <input type="number" id="adv-shuttle-fee" min="0" step="1">
+                <button id="adv-calculate-shuttle-btn" onclick="showShuttleCalculator('advanced')">點我計算球費</button>
+            </div>
+            
+            <div class="input-group">
+                <label for="adv-total-people" id="adv-total-people-label">總人數:</label>
+                <input type="number" id="adv-total-people" min="1" step="1">
+            </div>
+            
+            <div class="input-group">
+                <label for="female-count" id="female-count-label">女生人數:</label>
+                <input type="number" id="female-count" min="0" step="1">
+            </div>
+            
+            <div class="input-group">
+                <label for="discount-amount" id="discount-amount-label">減免金額 (元/人):</label>
+                <input type="number" id="discount-amount" min="0" step="1">
+            </div>
+            
+            <div class="result-container">
+                <div id="advanced-result" class="result"></div>
+            </div>
+            
+            <div class="button-group">
+                <button id="advanced-calculate-btn" onclick="calculateAdvanced()">計算AA費用</button>
+                <button id="advanced-reset-btn" onclick="resetAdvanced()">一鍵重置</button>
+            </div>
+            
+            <!-- 日期顯示 -->
+            <div class="date-display" id="advanced-date-display"></div>
+        </div>
+        
+        <!-- 球費計算彈窗 -->
+        <div id="shuttle-calculator" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeShuttleCalculator()">&times;</span>
+                <h2 id="shuttle-calc-title">球費計算</h2>
+                
+                <div class="input-group">
+                    <label for="tube-price" id="tube-price-label">每筒球價格 (元):</label>
+                    <input type="number" id="tube-price" min="0" step="1">
+                </div>
+                
+                <div class="input-group">
+                    <label for="shuttles-used" id="shuttles-used-label">使用球數量:</label>
+                    <input type="number" id="shuttles-used" min="0" step="1">
+                </div>
+                
+                <div class="result-container">
+                    <div id="shuttle-result" class="result"></div>
+                </div>
+                
+                <div class="button-group">
+                    <button id="calculate-shuttle-fee-btn" onclick="calculateShuttleFee()">計算</button>
+                    <button id="apply-shuttle-fee-btn" onclick="applyShuttleFee()">應用</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 日期顯示 -->
+        <div class="date-display" id="date-display"></div>
+        
+        <!-- 匯出和分享按鈕 -->
+        <div class="export-share-container">
+            <button id="export-btn" onclick="exportToExcel()">匯出</button>
+            <button id="share-btn" onclick="shareResults()">分享</button>
+        </div>
+    </div>
+    
+    <!-- 引入 SheetJS 庫用於匯出 Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
